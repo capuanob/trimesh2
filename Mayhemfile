@@ -1,8 +1,9 @@
 image: ghcr.io/capuanob/trimesh2-fuzz:latest
 project: trimesh2
-target: mesh_check
-tests:
+target: mesh-check
+testsuite:
     - file://corpus
 
 cmds:
   - cmd: /mesh_check @@ /dev/stdout
+    max_length: 100000

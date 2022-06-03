@@ -1,9 +1,9 @@
 # Build Stage
-FROM --platform=linux/amd64 ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:22.04 as builder
 
 ## Install build dependencies.
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y git clang make mesa-common-dev libglu1-mesa-dev libxi-dev
+    DEBIAN_FRONTEND=noninteractive apt-get install -y git g++ make mesa-common-dev libglu1-mesa-dev libxi-dev
 
 ## Add source code to the build stage. ADD prevents git clone being cached when it shouldn't
 WORKDIR /
@@ -20,7 +20,7 @@ RUN cp `ldd ./bin.Linux64/mesh_check | grep so | sed -e '/^[^\t]/ d' | sed -e 's
 
 ## Package Stage
 
-FROM --platform=linux/amd64 ubuntu:20.04
+FROM --platform=linux/amd64 ubuntu:22.04
 COPY --from=builder /trimesh2/bin.Linux64/mesh_check /mesh_check
 COPY --from=builder /deps /usr/lib
 
