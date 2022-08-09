@@ -1,4 +1,3 @@
-image: ghcr.io/capuanob/trimesh2-fuzz:latest
 project: trimesh2
 target: mesh-check
 testsuite:
